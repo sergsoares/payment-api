@@ -30,4 +30,11 @@ class PaymentController extends Controller
 
         return response()->json($payment, 200);
     }
+
+    public function store()
+    {
+        $payment = Payment::create(request()->all());
+
+        return $payment;
+    }
 }

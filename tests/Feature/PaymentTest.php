@@ -90,5 +90,26 @@ class PaymentTest extends TestCase
                 ]);
     }
 
-    
+    /** @test */
+    public function it_can_store_new_payment()  
+    {
+        //Arrange        
+        $payload = [
+            'flag' => 'SERGIO',
+            'number' => '234234235',
+            'date' => '22/23'
+            ];
+
+        //Act
+        $response = $this->json('POST', '/api/v1/payments', $payload);
+
+        //Assert
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'flag',
+                'number',
+                'date'
+                ])
+            ->assertJson($payload);
+    }    
 }
