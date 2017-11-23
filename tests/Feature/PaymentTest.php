@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Payment;
 
 class PaymentTest extends TestCase
 {
@@ -34,7 +35,7 @@ class PaymentTest extends TestCase
     public function it_can_show_individual_payment()
     {
         //Arrange
-        $payment = factory(\App\Payment::class)->create();
+        $payment = factory(Payment::class)->create();
 
         //Act
         $response = $this->json('GET', '/api/v1/payments/'.$payment->id);
@@ -55,7 +56,7 @@ class PaymentTest extends TestCase
     public function it_can_destroy_an_payment()
     {
         //Arrange 
-        $payment = factory(\App\Payment::class)->create();
+        $payment = factory(Payment::class)->create();
         
         // Act
         $response = $this->json('DELETE', '/api/v1/payments/'.$payment->id);
@@ -64,4 +65,30 @@ class PaymentTest extends TestCase
         $response->assertStatus(204);
     }
 
+    /** @test */
+    public function it_can_update_an_payment()
+    {
+        //Arrange
+        $payment = factory(Payment::class)->create();
+        $payload = ['flag' => 'CIELO'];
+
+        
+        //Act
+        $response = $this->json('PUT', '/api/v1/payments/'.$payment->id, $payload);
+    
+        //Assert
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'flag',
+                'number',
+                'date'
+                ])
+            ->assertJson([
+                'flag' => 'CIELO',
+                'number' => $payment->number,
+                'date' =>  $payment->date
+                ]);
+    }
+
+    
 }

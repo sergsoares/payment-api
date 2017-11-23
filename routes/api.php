@@ -22,4 +22,5 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('/payments', 'PaymentController@index');
     Route::get('/payments/{payment}', 'PaymentController@show');
     Route::delete('/payments/{payment}', 'PaymentController@destroy');
+    Route::put('/payments/{payment}', 'PaymentController@update');
 });

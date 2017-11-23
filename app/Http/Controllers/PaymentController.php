@@ -23,4 +23,11 @@ class PaymentController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function update(Payment $payment)
+    {
+        $payment->update(request()->all());
+
+        return response()->json($payment, 200);
+    }
 }
