@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Payment;
+use App\Repositories\PaymentRepositoryInterface;
 
 class PaymentController extends Controller
 {
+
+    public $paymentRepository;
+
+    public function __construct(PaymentRepositoryInterface $paymentRepository)
+    {  
+        $this->paymentRepository = $paymentRepository;
+    }
+
     public function index()
     {   
-        return Payment::all();
+        $data = $this->paymentRepository->getAll(); 
+
+        return $data;
     }
 
     public function show(Payment $payment)
