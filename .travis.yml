@@ -5,5 +5,5 @@ php:
   
 script:
   - composer install
-  - vendor/bin/phpunit
   - php artisan key:generate
+  - vendor/bin/phpunit
