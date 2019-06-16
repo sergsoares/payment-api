@@ -5,6 +5,9 @@ php:
 
 env:
   - DB=mysql
+  
+services:
+  - mysql
  
 before_script:
   - cp .env.example .env
