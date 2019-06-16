@@ -2,8 +2,11 @@ language: php
 
 php:
   - 7.1
-  
-script:
+
+before_script:
+  - cp .env.example .env
   - composer install
   - php artisan key:generate
+
+script:
   - vendor/bin/phpunit
