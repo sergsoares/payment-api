@@ -3,11 +3,15 @@ language: php
 php:
   - 7.1
 
+env:
+  - DB=mysql
+ 
 before_script:
   - cp .env.example .env
   - composer install
   - php artisan key:generate
   - php artisan migration
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
 
 script:
   - vendor/bin/phpunit
