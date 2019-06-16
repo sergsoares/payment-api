@@ -10,8 +10,8 @@ before_script:
   - cp .env.example .env
   - composer install
   - php artisan key:generate
-  - php artisan migrate
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS homestead;" -uroot; fi
+  - mysql -e 'CREATE DATABASE homestead;'
 
 script:
   - vendor/bin/phpunit
+  - php artisan migrate
